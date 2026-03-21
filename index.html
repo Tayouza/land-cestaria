@@ -308,60 +308,73 @@
         const INITIAL_COUNT = 6;
 
         async function init() {
-            try {
-                // Usando o proxy AllOrigins para contornar o CORS no frontend
-                const apiUrl = 'https://app.instadelivery.com.br/api/stores/by-slug/cestariaearte';
-                const proxyUrl = `https://api.allorigins.win/raw?url=${encodeURIComponent(apiUrl)}`;
+            const MAX_ATTEMPTS = 3;
+            let attempt = 0;
+            let success = false;
 
-                const response = await fetch(proxyUrl);
-                if (!response.ok) throw new Error('Falha ao carregar API');
+            while (attempt < MAX_ATTEMPTS && !success) {
+                try {
+                    attempt++;
+                    // Usando o proxy AllOrigins para contornar o CORS no frontend
+                    const apiUrl = 'https://app.instadelivery.com.br/api/stores/by-slug/cestariaearte';
+                    const proxyUrl = `https://api.allorigins.win/raw?url=${encodeURIComponent(apiUrl)}`;
 
-                const data = await response.json();
+                    const response = await fetch(proxyUrl);
+                    if (!response.ok) throw new Error('Falha ao carregar API');
 
-                allProducts = [];
-                if (data.groups && Array.isArray(data.groups)) {
-                    data.groups.forEach(group => {
-                        if (group.itens && Array.isArray(group.itens)) {
-                            group.itens.forEach(item => {
-                                allProducts.push({
-                                    nome: item.name,
-                                    preco: `R$ ${item.price1.toFixed(2).replace('.', ',')}`,
-                                    imagem: item.image || 'imgs/cesta_1.webp'
+                    const data = await response.json();
+
+                    allProducts = [];
+                    if (data.groups && Array.isArray(data.groups)) {
+                        data.groups.forEach(group => {
+                            if (group.itens && Array.isArray(group.itens)) {
+                                group.itens.forEach(item => {
+                                    allProducts.push({
+                                        nome: item.name,
+                                        preco: `R$ ${item.price1.toFixed(2).replace('.', ',')}`,
+                                        imagem: item.image || 'imgs/cesta_1.webp'
+                                    });
                                 });
-                            });
-                        }
-                    });
-                }
-
-                // Remove duplicados pelo nome
-                const seen = new Set();
-                allProducts = allProducts.filter(el => {
-                    const isDuplicate = seen.has(el.nome);
-                    seen.add(el.nome);
-                    return !isDuplicate;
-                });
-
-                renderProducts();
-
-                if (allProducts.length > INITIAL_COUNT) {
-                    const toggleContainer = document.getElementById('toggle-container');
-                    if (toggleContainer) {
-                        toggleContainer.classList.add('flex');
-                        toggleContainer.classList.remove('hidden');
+                            }
+                        });
                     }
-                }
-            } catch (error) {
-                console.error('Erro na sincronização:', error);
-                const grid = document.getElementById('product-grid');
-                if (grid) {
-                    grid.innerHTML = `
-                        <div class="col-span-full text-center py-10">
-                            <p class="text-slate-500 mb-4">Ops! Não conseguimos carregar os preços atualizados agora.</p>
-                            <a href="https://instadelivery.com.br/cestariaearte" target="_blank" class="inline-block bg-primary text-background-dark px-6 py-2 rounded-lg font-bold">
-                                Ver Cardápio Online
-                            </a>
-                        </div>
-                    `;
+
+                    // Remove duplicados pelo nome
+                    const seen = new Set();
+                    allProducts = allProducts.filter(el => {
+                        const isDuplicate = seen.has(el.nome);
+                        seen.add(el.nome);
+                        return !isDuplicate;
+                    });
+
+                    renderProducts();
+
+                    if (allProducts.length > INITIAL_COUNT) {
+                        const toggleContainer = document.getElementById('toggle-container');
+                        if (toggleContainer) {
+                            toggleContainer.classList.add('flex');
+                            toggleContainer.classList.remove('hidden');
+                        }
+                    }
+                    success = true;
+                } catch (error) {
+                    console.error(`Tentativa ${attempt} falhou:`, error);
+                    if (attempt < MAX_ATTEMPTS) {
+                        // Pequeno atraso antes de tentar novamente
+                        await new Promise(resolve => setTimeout(resolve, 1000));
+                    } else {
+                        const grid = document.getElementById('product-grid');
+                        if (grid) {
+                            grid.innerHTML = `
+                                <div class="col-span-full text-center py-10">
+                                    <p class="text-slate-500 mb-4">Ops! Não conseguimos carregar os preços atualizados agora.</p>
+                                    <a href="https://instadelivery.com.br/cestariaearte" target="_blank" class="inline-block bg-primary text-background-dark px-6 py-2 rounded-lg font-bold">
+                                        Ver Cardápio Online
+                                    </a>
+                                </div>
+                            `;
+                        }
+                    }
                 }
             }
         }
