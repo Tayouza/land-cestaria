@@ -5,7 +5,32 @@
 <head>
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-    <title>Cesta, Balão &amp; Arte - Cestas de Café da Manhã</title>
+    <title>Cesta, Balão &amp; Arte - Cestas de Café da Manhã e Presentes em Porto Alegre</title>
+    <meta name="description"
+        content="Cestas de café da manhã artesanais em Porto Alegre e região metropolitana. Presentes personalizados com cestas de vime, balões e café da manhã especial. Peça agora!" />
+    <meta name="keywords"
+        content="cestas de café da manhã porto alegre, cestas de presentes porto alegre, café da manhã artesanal, cestas românticas, cestas de aniversário" />
+    <link rel="canonical" href="https://cestariaearte.com.br" />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://cestariaearte.com.br" />
+    <meta property="og:title" content="Cesta, Balão &amp; Arte - Cestas de Café da Manhã em Porto Alegre" />
+    <meta property="og:description"
+        content="Surpreenda quem você ama com nossas cestas artesanais. Entregamos em Porto Alegre e região metropolitana." />
+    <meta property="og:image" content="https://cestariaearte.com.br/imgs/cesta_6.webp" />
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content="https://cestariaearte.com.br" />
+    <meta property="twitter:title" content="Cesta, Balão &amp; Arte - Cestas de Café da Manhã" />
+    <meta property="twitter:description"
+        content="Cestas de café da manhã artesanais e personalizadas em Porto Alegre." />
+    <meta property="twitter:image" content="https://cestariaearte.com.br/imgs/cesta_6.webp" />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/webp" href="imgs/logo_banco.webp" />
+
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <script src="tailwind.config.js"></script>
     <link
@@ -14,6 +39,46 @@
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="style.css" />
+
+    <!-- Structured Data (Schema.org) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "LocalBusiness",
+      "name": "Cesta, Balão & Arte",
+      "image": "https://cestariaearte.com.br/imgs/logo_banco.webp",
+      "@id": "https://cestariaearte.com.br",
+      "url": "https://cestariaearte.com.br",
+      "telephone": "+5551996071421",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Estr. Afonso Lourenço Mariante, 4539 - Lomba do Pinheiro",
+        "addressLocality": "Porto Alegre",
+        "addressRegion": "RS",
+        "postalCode": "91550-630",
+        "addressCountry": "BR"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": -30.1016764,
+        "longitude": -51.1419776
+      },
+      "openingHoursSpecification": {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": [
+          "Monday",
+          "Tuesday",
+          "Wednesday",
+          "Thursday",
+          "Friday",
+          "Saturday",
+          "Sunday"
+        ],
+        "opens": "00:00",
+        "closes": "23:59"
+      }
+    }
+    </script>
 </head>
 
 <body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100">
@@ -23,7 +88,7 @@
             class="sticky top-0 z-50 bg-background-light/95 dark:bg-background-dark/95 backdrop-blur-md border-b border-primary/10 px-4 md:px-10 lg:px-40 py-3 flex items-center justify-between">
             <div class="flex items-center gap-3 group cursor-pointer">
                 <img class="h-10 w-10 object-contain rounded-full border border-primary/20 group-hover:rotate-12 transition-transform duration-300"
-                    data-alt="Cesta, Balão &amp; Arte Logo" src="imgs/logo_banco.webp" />
+                    alt="Cesta, Balão &amp; Arte Logo" src="imgs/logo_banco.webp" />
                 <h2
                     class="text-xl font-bold tracking-tight text-slate-900 dark:text-slate-100 group-hover:text-primary transition-colors">
                     Cesta, Balão &amp; Arte
@@ -82,14 +147,15 @@
         <main class="flex-1">
             <!-- Hero Section -->
             <section class="relative h-[600px] flex items-center justify-center overflow-hidden">
-                <div class="absolute inset-0 bg-cover bg-center"
-                    data-alt="Beautiful breakfast setting with fresh fruits and pastries"
+                <div class="absolute inset-0 bg-cover bg-center" role="img"
+                    aria-label="Cesta de café da manhã decorada com frutas frescas e pães"
                     style="background-image: url('imgs/cesta_6.webp');">
                 </div>
                 <div class="absolute inset-0 hero-overlay"></div>
                 <div class="relative z-10 max-w-4xl px-4 text-center animate-fade-in-up">
                     <h1 class="text-4xl md:text-6xl font-black text-white leading-tight mb-6 drop-shadow-2xl">
-                        Desperte Sorrisos com Nossas <span class="text-primary italic">Cestas Artesanais</span>
+                        Cestas de Café da Manhã em Porto Alegre: <span class="text-primary italic">Desperte
+                            Sorrisos</span>
                     </h1>
                     <p class="text-lg md:text-xl text-white/90 mb-10 max-w-2xl mx-auto drop-shadow-md">
                         Cestas de café da manhã decoradas com carinho e qualidade para tornar seus momentos especiais
@@ -116,7 +182,8 @@
                         <span class="text-secondary font-bold tracking-widest uppercase text-xs mb-2 italic">Artesanal
                             &amp;
                             Exclusivo</span>
-                        <h2 class="text-3xl md:text-5xl font-bold gradient-text pb-2">Nossas Cestas Destaque</h2>
+                        <h2 class="text-3xl md:text-5xl font-bold gradient-text pb-2">As Melhores Cestas de Café da
+                            Manhã e Presentes</h2>
                     </div>
                     <div id="product-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                         <!-- Skeleton Loaders (Visual Feedback) -->
@@ -271,7 +338,7 @@
         <footer class="bg-slate-100 dark:bg-background-dark/80 border-t border-primary/5 py-12 px-4 md:px-10 lg:px-40">
             <div class="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center gap-8">
                 <div class="flex items-center gap-3">
-                    <img class="h-8 w-8 object-contain rounded-full" data-alt="Cesta, Balão &amp; Arte Logo footer"
+                    <img class="h-8 w-8 object-contain rounded-full" alt="Cesta, Balão &amp; Arte Logo footer"
                         src="imgs/logo_banco.webp" />
                     <span class="text-lg font-bold">Cesta, Balão &amp; Arte</span>
                 </div>
